@@ -7,5 +7,5 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Hello World! (Listening on port ${port} (now in TypeScript!)`);
+  console.log(`Hello World! (Listening on port ${port}--now in TypeScript!)`);
 });
