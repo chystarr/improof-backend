@@ -1,6 +1,12 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, Request, Response, Router } from 'express';
+import timelines from './controllers/timelines';
+
 const app: Express = express();
 const port = 8000;
+
+app.use(express.json());
+
+app.use('/timelines', timelines);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World (now in TypeScript)!');
