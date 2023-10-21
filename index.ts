@@ -1,11 +1,8 @@
 import express, { Express, Request, Response, Router } from 'express';
-import { PrismaClient } from '@prisma/client';
 import timelines from './controllers/timelines';
 
 const app: Express = express();
 const port = 8000;
-const router: Router = express.Router();
-const prisma: PrismaClient = new PrismaClient();
 
 app.use(express.json());
 
