@@ -5,7 +5,9 @@ import timelines from './controllers/timelines';
 const app: Express = express();
 const port = 8000;
 const router: Router = express.Router();
-const prisma = new PrismaClient();
+const prisma: PrismaClient = new PrismaClient();
+
+app.use(express.json());
 
 app.use('/timelines', timelines);
 
