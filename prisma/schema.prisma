@@ -26,11 +26,28 @@ model Timeline {
   // userId Int
 }
 
+enum PostType {
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  LINK
+}
+
 model Post {
-  id      Int    @id @default(autoincrement())
-  title   String @db.VarChar(255)
-  content String
+  id          Int          @id @default(autoincrement())
+  title       String       @db.VarChar(255)
+  postType    PostType
+  postContent PostContent?
 
   timeline   Timeline @relation(fields: [timelineId], references: [id])
   timelineId Int
+}
+
+model PostContent {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int  @unique
 }
