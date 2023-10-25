@@ -5,7 +5,9 @@ const router: Router = express.Router();
 const prisma: PrismaClient = new PrismaClient();
 
 router.get('/', async (req: Request, res: Response) => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    include: { postContent: true },
+  });
   res.json(posts);
 });
 
