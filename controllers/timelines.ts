@@ -13,7 +13,7 @@ router.post('/', async (req: Request, res: Response) => {
   const { title } = req.body;
   const timeline = await prisma.timeline.create({
     data: {
-      title: title,
+      title,
     },
   });
   res.json(timeline);

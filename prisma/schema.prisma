@@ -35,19 +35,20 @@ enum PostType {
 }
 
 model Post {
-  id          Int          @id @default(autoincrement())
-  title       String       @db.VarChar(255)
-  postType    PostType
-  postContent PostContent?
+  id            Int         @id @default(autoincrement())
+  title         String      @db.VarChar(255)
+  postType      PostType
+  postContent   PostContent @relation(fields: [postContentId], references: [id])
+  postContentId Int         @unique
 
-  timeline   Timeline @relation(fields: [timelineId], references: [id])
-  timelineId Int
+  // Add owner?
+  timeline   Timeline? @relation(fields: [timelineId], references: [id])
+  timelineId Int?
 }
 
 model PostContent {
   id      Int    @id @default(autoincrement())
   content String
 
-  post   Post @relation(fields: [postId], references: [id])
-  postId Int  @unique
+  post Post?
 }

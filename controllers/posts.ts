@@ -10,7 +10,20 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
-
+  const { title, postType, postContent, timelineId } = req.body;
+  const post = await prisma.post.create({
+    data: {
+      title,
+      postType,
+      postContent: {
+        create: {
+          content: postContent
+        },
+      },
+      timeline: { connect: { id: timelineId } },
+    },
+  });
+  res.json(post);
 });
 
 export default router;
