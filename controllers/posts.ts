@@ -5,18 +5,27 @@ const router: Router = express.Router();
 const prisma: PrismaClient = new PrismaClient();
 
 router.get('/', async (req: Request, res: Response) => {
-  const timelines = await prisma.timeline.findMany();
-  res.json(timelines);
+  const posts = await prisma.post.findMany({
+    include: { postContent: true },
+  });
+  res.json(posts);
 });
 
 router.post('/', async (req: Request, res: Response) => {
-  const { title } = req.body;
-  const timeline = await prisma.timeline.create({
+  const { title, postType, postContent, timelineId } = req.body;
+  const post = await prisma.post.create({
     data: {
       title,
+      postType,
+      postContent: {
+        create: {
+          content: postContent
+        },
+      },
+      timeline: { connect: { id: timelineId } },
     },
   });
-  res.json(timeline);
+  res.json(post);
 });
 
 export default router;
